@@ -1,33 +1,15 @@
-class Element():
-    def __init__(self, val, priority, order):
-        self.priority = priority
-        self.val = val
-        self.order = order
-
-    def __lt__(self, other):
-        if self.priority < other.priority:
-            return True
-        elif self.priority == other.priority and self.order < other.order:
-            return True
-
-        return False
-
-    def __gt__(self, other):
-        if self.priority > other.priority:
-            return True
-        elif self.priority == other.priority and self.order > other.order:
-            return True
-
-        return False
-
-
 class MinHeap():
     def __init__(self):
         self.lst = []
 
+    def min(self):
+        if self.lst:
+            return self.list[0]
+        return None
+
     def extract_min(self):
-        if len(self.lst) == 0:
-            return
+        if not self.lst:
+            return None
         self._swap(0, len(self.lst) - 1)
         res = self.lst.pop()
 
@@ -36,8 +18,7 @@ class MinHeap():
 
         return res
 
-    def insert(self, val, priority, order):
-        ele = Element(val, priority, order)
+    def insert(self, ele):
         self.lst.append(ele)
 
         # maintain Min Heap property
@@ -46,13 +27,15 @@ class MinHeap():
     def search(self, value) -> int:
         for index, item in enumerate(self.lst):
             if item.val == value:
-                return index
-        return -1
+                return index, item
+        return -1, None
 
-    def change_priority(self, i: int, new_prio: int):
-        old_prio = self.lst[i].priority
-        self.lst[i].priority = new_prio
-        if new_prio < old_prio:
+    def update(self, i: int, ele):
+        old = self.lst[i]
+
+        self.lst[i] = ele
+
+        if ele < old:
             self._shift_up(i)
         else:
             self._shift_down(i)
