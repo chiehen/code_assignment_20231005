@@ -1,8 +1,11 @@
 from PriorityQueue import PriorityQueue as Queue
+from Element import Element
 
 
 def test_insert():
     queue = Queue()
+
+    assert queue.peek() is None
 
     queue.insert("two", 2)
 
@@ -28,6 +31,7 @@ def test_dequeue():
     assert queue.dequeue() == "three"
     assert queue.dequeue() == "four"
     assert queue.dequeue() == "five"
+    assert queue.dequeue() is None
 
 
 def test_change_priority():
