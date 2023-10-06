@@ -1,10 +1,13 @@
+from Element import Element
+
+
 class MinHeap():
     def __init__(self):
-        self.lst = []
+        self.lst: list[Element] = []
 
     def min(self):
         if self.lst:
-            return self.list[0]
+            return self.lst[0]
         return None
 
     def extract_min(self):
@@ -18,7 +21,7 @@ class MinHeap():
 
         return res
 
-    def insert(self, ele):
+    def insert(self, ele: Element):
         self.lst.append(ele)
 
         # maintain Min Heap property
@@ -30,7 +33,7 @@ class MinHeap():
                 return index, item
         return -1, None
 
-    def update(self, i: int, ele):
+    def update(self, i: int, ele: Element):
         old = self.lst[i]
 
         self.lst[i] = ele
@@ -56,7 +59,7 @@ class MinHeap():
             return 2 * i + 2
         return None
 
-    def _shift_down(self, i):
+    def _shift_down(self, i: int):
         l_child = self._l_child(i)
         r_child = self._r_child(i)
         min_index = i
@@ -69,16 +72,11 @@ class MinHeap():
             self._swap(i, min_index)
             self._shift_down(min_index)
 
-    def _shift_up(self, i):
+    def _shift_up(self, i: int):
         if i == 0:
             return
         p = self._parent(i)
         if self.lst[i] < self.lst[p]:
             self._swap(i, p)
             self._shift_up(p)
-
-    def print_prio(self):
-        for ele in self.lst:
-            print(ele.priority)
-
 
